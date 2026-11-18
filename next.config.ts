@@ -1,16 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
+  // exercises.json is read with fs at runtime; make sure serverless bundles include it
+  outputFileTracingIncludes: {
+    '/**': ['./public/data/exercises.json'],
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/hasaneyldrm/exercises-dataset/**',
       },
-    },
+    ],
   },
 };
 
